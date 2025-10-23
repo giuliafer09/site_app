@@ -14,72 +14,53 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      justify-content: center;
-      align-items: center;
       text-align: center;
+      scroll-behavior: smooth;
     }
 
-    .login-page {
-      background-color: #b7c6cf;
+    section {
       width: 100%;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .login-page img {
-      width: 130px;
-      margin-bottom: 30px;
-    }
-
-    .login-page input {
-      width: 280px;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 6px;
-    }
-
-    .login-page button {
-      background-color: #90a4ae;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 40px;
-      margin-top: 20px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .login-page button:hover {
-      background-color: #78909c;
-    }
-
-    
-    .page {
-      background-color: #f2f2f2;
-      width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      padding-bottom: 100px;
+    }
+
+    /* TELA INICIAL */
+    #inicio {
+      background-color: #b7c6cf;
+      justify-content: center;
+    }
+
+    #inicio img {
+      width: 160px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #inicio img:hover {
+      transform: scale(1.05);
     }
 
     h2 {
       margin-top: 60px;
       font-weight: 600;
-       margin-bottom: 25px; 
+      margin-bottom: 25px;
+    }
+
+    p.descricao {
+      color: #555;
+      font-size: 14px;
+      max-width: 500px;
+      margin-bottom: 25px;
     }
 
     .card {
@@ -104,13 +85,13 @@
       border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
+      transition: background-color 0.2s ease;
     }
 
     button:hover {
       background-color: #a0b4bf;
     }
 
-   
     .navbar {
       background-color: #b7c6cf;
       width: 100%;
@@ -122,6 +103,7 @@
       justify-content: space-around;
       align-items: center;
       padding: 0 20px;
+      z-index: 10;
     }
 
     .navbar img {
@@ -140,11 +122,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 100px;
     }
-
-    
-
 
     .essencia-card {
       background-color: white;
@@ -168,56 +146,28 @@
       margin-top: 10px;
       font-size: 15px;
     }
-
-   
-    .profile-pic {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background-image: url('imagens/perfil (2).png');
-      background-size: cover;
-      background-position: center;
-      margin-top: 40px;
-    }
-
-    .perfil-info {
-      margin-top: 25px;
-      width: 350px;
-    }
-
-    .perfil-info input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-    }
-
-    .extra {
-      margin-top: 10px;
-      color: #666;
-      font-size: 14px;
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="login-page" id="login">
-    <img src="imagens/logo.png" alt="Logo">
-    <input type="email" placeholder="E-mail">
-    <input type="password" placeholder="Senha">
-    <button onclick="mostrarPagina('registrar')">Próximo</button>
-  </div>
+  <!-- TELA INICIAL -->
+  <section id="inicio">
+    <a href="#registrar"><img src="imagens/logo.png" alt="Logo"></a>
+  </section>
 
-
-  <div class="page" id="registrar" style="display:none;">
+  <!-- REGISTRAR HUMOR -->
+  <section id="registrar">
     <h2>Registre um humor ou emoção</h2>
+    <p class="descricao">
+      Você pode registrar seu humor para que o sistema escolha automaticamente uma essência e um horário de ativação, 
+      ou, se preferir, programar manualmente abaixo.
+    </p>
 
     <div class="card">
       <label>Emoção</label>
       <p>Como você está se sentindo agora?</p>
-      <select>
+      <select id="emocao">
         <option>Selecione...</option>
         <option>Ansiosa</option>
         <option>Estressada</option>
@@ -230,65 +180,46 @@
     </div>
 
     <div class="card">
-      <label>Humor</label>
-      <p>Como você se sentiu no geral hoje?</p>
-      <select>
-        <option>Selecione...</option>
-        <option>Feliz</option>
-        <option>Tranquila</option>
-        <option>Irritada</option>
-        <option>Triste</option>
-        <option>Empolgada</option>
-        <option>Com sono</option>
-      </select>
+      <label>Horário</label>
+      <p>Escolha o horário em que deseja ativar a essência:</p>
+      <input type="time" id="horarioEmocao" value="12:00">
     </div>
 
-    <button onclick="alert('Essência escolhida!')">Registrar</button>
-
-    <div class="navbar">
-      <img src="imagens/coracao.png" onclick="mostrarPagina('registrar')" alt="Registrar">
-      <img src="imagens/essencia.png" onclick="mostrarPagina('essencias')" alt="Essências">
-      <img src="imagens/relogio.png" onclick="mostrarPagina('programar')" alt="Programar">
-      <img src="imagens/perfil (2).png" onclick="mostrarPagina('perfil')" alt="Perfil">
-    </div>
-  </div>
+    <button onclick="registrarHumor()">Registrar</button>
+  </section>
 
   <!-- ESSÊNCIAS -->
-  <div class="page" id="essencias" style="display:none;">
+  <section id="essencias">
     <h2>Nossas essências</h2>
 
     <div class="essencias">
       <div class="essencia-card">
         <h4>Lavanda</h4>
-        <p>Ela pode ser usada para acalmar a mente, promover o relaxamento, melhorar a qualidade do sono e até auxiliar no alívio de dores musculares e inflamações.</p>
+        <p>Ela pode ser usada para acalmar a mente, promover o relaxamento, melhorar o sono e aliviar dores musculares.</p>
       </div>
 
       <div class="essencia-card">
         <h4>Alecrim</h4>
-        <p>Seu aroma tem o poder de relaxar a mente e o corpo, promovendo uma sensação de bem-estar e calma. Além disso, a essência de alecrim possui propriedades que ajudam a melhorar a circulação sanguínea e aliviar dores musculares, especialmente quando diluído em óleos vegetais e aplicado de forma adequada na pele.</p>
+        <p>Seu aroma ajuda no bem-estar, melhora a circulação e reduz o estresse.</p>
       </div>
 
       <div class="essencia-card">
         <h4>Hortelã e pimenta</h4>
-        <p>A essência (óleo essencial) de hortelã-pimenta serve para aliviar dores (de cabeça, musculares, articulares), melhorar a digestão, descongestionar as vias respiratórias, reduzir náuseas e enjoos, estimular a concentração e o foco, e refrescar o corpo e a mente. </p>
+        <p>Ideal para aliviar dores, descongestionar as vias respiratórias e estimular o foco e a concentração.</p>
       </div>
     </div>
+  </section>
 
-    <div class="navbar">
-      <img src="imagens/coracao.png" onclick="mostrarPagina('registrar')" alt="Registrar">
-      <img src="imagens/essencia.png" onclick="mostrarPagina('essencias')" alt="Essências">
-      <img src="imagens/relogio.png" onclick="mostrarPagina('programar')" alt="Programar">
-      <img src="imagens/perfil (2).png" onclick="mostrarPagina('perfil')" alt="Perfil">
-    </div>
-  </div>
-
-
-  <div class="page" id="programar" style="display:none;">
+  <!-- PROGRAMAR -->
+  <section id="programar">
     <h2>Programar essência e horário</h2>
+    <p class="descricao">
+      Se preferir escolher manualmente, selecione a essência e o horário desejados abaixo.
+    </p>
 
     <div class="card">
       <label>Essências</label>
-      <select>
+      <select id="essenciaManual">
         <option>Selecione...</option>
         <option>Lavanda</option>
         <option>Alecrim</option>
@@ -298,42 +229,59 @@
 
     <div class="card">
       <label>Horário</label>
-      <input type="time" value="12:00">
+      <input type="time" id="horarioManual" value="12:00">
     </div>
 
-    <button>Salvar</button>
+    <button onclick="programarManual()">Salvar</button>
+  </section>
 
-    <div class="navbar">
-      <img src="imagens/coracao.png" onclick="mostrarPagina('registrar')" alt="Registrar">
-      <img src="imagens/essencia.png" onclick="mostrarPagina('essencias')" alt="Essências">
-      <img src="imagens/relogio.png" onclick="mostrarPagina('programar')" alt="Programar">
-      <img src="imagens/perfil (2).png" onclick="mostrarPagina('perfil')" alt="Perfil">
-    </div>
+  <!-- NAVBAR FIXA -->
+  <div class="navbar">
+    <a href="#registrar"><img src="imagens/coracao.png" alt="Registrar"></a>
+    <a href="#essencias"><img src="imagens/essencia.png" alt="Essências"></a>
+    <a href="#programar"><img src="imagens/relogio.png" alt="Programar"></a>
   </div>
 
-
-  <div class="page" id="perfil" style="display:none;">
-    <h2>Perfil</h2>
-    <div class="profile-pic"></div>
-    <div class="perfil-info">
-      <input type="text" value="Giulia Souza" readonly>
-      <input type="email" value="giuliafesosa9@gmail.com" readonly>
-      <input type="password" value="giulia123" readonly>
-      <div class="extra">Membro desde: 2025</div>
-    </div>
-
-    <div class="navbar">
-      <img src="imagens/coracao.png" onclick="mostrarPagina('registrar')" alt="Registrar">
-      <img src="imagens/essencia.png" onclick="mostrarPagina('essencias')" alt="Essências">
-      <img src="imagens/relogio.png" onclick="mostrarPagina('programar')" alt="Programar">
-      <img src="imagens/perfil (2).png" onclick="mostrarPagina('perfil')" alt="Perfil">
-    </div>
-  </div>
-
+  <!-- SCRIPT -->
   <script>
-    function mostrarPagina(id) {
-      document.querySelectorAll('.login-page, .page').forEach(p => p.style.display = "none");
-      document.getElementById(id).style.display = "flex";
+    const essenciasPorEmocao = {
+      "Ansiosa": "Lavanda",
+      "Estressada": "Lavanda",
+      "Sem foco": "Hortelã e pimenta",
+      "Cansada": "Alecrim",
+      "Congestionada": "Hortelã e pimenta",
+      "Relaxada": "Lavanda",
+      "Motivada": "Alecrim"
+    };
+
+    function registrarHumor() {
+      const emocao = document.getElementById('emocao').value;
+      const horario = document.getElementById('horarioEmocao').value;
+
+      if (emocao === "Selecione...") {
+        alert("Escolha uma emoção antes de registrar!");
+        return;
+      }
+
+      const essencia = essenciasPorEmocao[emocao] || "Lavanda";
+
+      alert(`✨ Modo Automático Ativado!\n\nEmoção: ${emocao}\nEssência escolhida: ${essencia}\nHorário programado: ${horario}`);
+
+      // Aqui poderia enviar ao backend futuramente
+      // fetch('/api', { method: 'POST', body: JSON.stringify({ emocao, essencia, horario }) });
+    }
+
+    function programarManual() {
+      const essencia = document.getElementById('essenciaManual').value;
+      const horario = document.getElementById('horarioManual').value;
+
+      if (essencia === "Selecione...") {
+        alert("Escolha uma essência antes de salvar!");
+        return;
+      }
+
+      alert(`🕓 Programação Manual Salva!\n\nEssência: ${essencia}\nHorário: ${horario}`);
+
     }
   </script>
 
